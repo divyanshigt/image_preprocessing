@@ -1,0 +1,19 @@
+Imge processing
+We give an image to computer -> it change the image -> give us abetter or useful image
+
+Image Processing VS Computer Vision
+-Image Processing improve image,computer vision understand them
+
+ What is Image?
+-Collection of pixels
+-matrix of numbers
+Image =matrix
+Pixel =smallest unit
+RGB = 3Channels
+
+
+Object detection
+Object Recognition
+Object Segmentation- Instance vs semantic
+Object Localization
+

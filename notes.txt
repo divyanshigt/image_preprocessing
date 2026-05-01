@@ -1,0 +1,215 @@
+Word Embedding
+-Dence vector representation of a word that capture meaning
+TF-IDF treats words as independent tokens
+TF-IDF does not understand
+car =automobile
+mobile =electronics
+happy =joyful
+'So we need a way to represent the words based on meaning, not just count
+Technique fro dense numerical vectors
+Word2Vec
+
+- one of the technique in NLP used to represent words as dense numerical vector
+-developed by google in 2013
+-it allow machine to understand the semantic relationship between words by positioning 
+similar words closer together in a high-dimentional vector vector space
+
+
+Core idea behind the word2Vec 
+-Words that appear in similar context have similar meaning
+-This is called as distributionalhypothesis
+Core Architectures
+-CBOW -continuous Bag of Words
+-Model that predict a target word based on it's surrounding context word.
+
+Skip-gram
+-using a single word to predict this surrounding context words
+it is fast for infrequent words 
+
+CBOW: Predict target word from surrounding context
+
+Skip-gram: Predict surrounding word from a target word
+input-artificial
+prediction-intelligence,human,machine
+
+key differences b/w sparse matrix and dense matrix
+1. Data representation
+sparce-Mostly zero values
+   dense-most values are meaningful ,non-zero values
+2. memory efficiency
+
+sparse - highly memory efficient for large dataset
+dense -memory intensive for large dataset
+
+glove
+-global vectors for word representation
+-developed by stanford university
+unlike Word2Vec (predictive models),glove is a:count-based +matrix fractorization
+
+It combines 
+1.statistical word co-occurance
+2. matrix fractorization
+3. linear algebra
+Word2Vec learns embadding by predicting context
+
+but it uses :
+-local context window 
+-doesn't directly use globle corpus statistics
+
+Core idea behind glove:
+1. it build word-word co-occurance matrix
+
+=========================================
+Window Based Model
+Glove -Window Based Model (Context Usage)
+After GloVe we have :
+word->vector
+But NLP task won't be for one single word
+They are about word+ surrounding words...
+
+So we need to use a window 
+Window = fixed number of words around a target word
+
+Limitation of window based Model:
+-Fixed window size
+-Capture limited context
+
+Example-
+I am from France and I speak fluent_________
+
+-That's why we need memory
+= So we need RNN
+
+RNN -Recurrent Neural Network
+   Pre-requisite
+   1.NLP
+   2.ANN
+Ex: I did not like this movie
+
+Step-1 Initialize memory
+memory-empty
+this memory is called hidden state
+
+
+Step-2 Read first word
+Input -"I"
+Updates memory-understanding of "I"
+
+
+Step-3 Read next word
+Input - "did"
+-previous memory ="I"
+-current word="did"
+memory - undestanding of "I did"
+
+
+Step 4- Read next word:
+Input -"not"
+pre memory -"I did"
+current word -"not"
+new memory-"I did not"
+current word -"like"-positive sentiment
+new memory -"I did not like"
+
+But memory contains "not"
+memory -negative sentiment
+
+Algorithm of RNN:
+
+1.start with empty memory
+
+2.for each word in the sentence:
+-Read  the word
+-Combine it with previous memory
+-update the memory
+
+3. After last word:
+-Use memory to take prediction
+
+
+
+new memory -previousmemory+currentword
+-same network repeated across time
+-same weight used at every Step
+-this is called weight sharing
+
+Summary of RNN:
+1. Handle sequence
+2.Maintains memory
+3. Works for text,speech,time series
+
+Limited of RNN:
+ 1.Cannot handle long dependencies
+ 2.Slow (because of the sequencial processing)
+ 
+Types of RNN
+1.One-to-One-process single fixed size input to produce single fixed size output
+Example-Image Classification (input one image and get one label like "cat" or "dog")
+
+2.One-to-Many-process single input to produce a sequence of output
+Example-Image Captioning (single image input produces a sequence of words)
+
+3.Many-to-One-takes a sequence of input to produce a single output
+Example- Sententiment Analysis,Spam Classification
+
+4.Many-to-Many-process multiple inputs to produce multiple outputs
+Example - Language Translator
+
+kEY Architectures of RNN:
+-Standard RNN often struggle with the "vanishing gradient problem" where they forget
+information from the distant past. So we have advanced variants to solve this problem
+using gating mechanism
+
+-LSTM -Long short term memory : Uses three gates(input,output,forget)
+-GRU -Gated Recurrent unit :Uses two gates(update and reset)
+-BiRNN-Bidirectional RNN: Process the sequence in both forward and backward direction
+-Deep RNN- Stack multiple RNN layers on top of each-other
+
+
+BPTT-Backpropagation through time
+-to understand BPTT,think RNN as standard deep network that has been unrolled in time, Because 
+same parameter are used at every step...
+ 
+
+three gates of LSTM:
+1. Foget gate: decides what to forget from the memory
+2. Input gate: decides what to store in memory
+3. Output gate: decides what to predict or output memory
+Example: "I went to the movie yesterday...the movie was amazing"
+Word -> "yesterday"->may not matter ->forget
+Word ->"amazing" -> important sentiment->input
+
+
+Senetence-"I did not like the movie"
+Step by step LSTM Algorithm
+1.Init memory
+memory=empty
+
+
+2. Read first word
+"I" ->Not important ->weak memory
+
+
+3. Read next word
+"did" ->memory updated slightly
+
+4.Read next word
+"not" ->Input gate ->store "not"
+
+5. Read next word
+"like" ->Input gate ->store "like"
+
+6. Read next word
+"the" ->Not important ->weak memory
+LSTM combines - final outcome -negative
+
+Internal flow:
+At each word"
+1.decide what to forget
+2. decides what to remember
+3.update memory
+4.decides output
+
+
+
+
